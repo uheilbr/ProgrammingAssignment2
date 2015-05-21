@@ -30,14 +30,14 @@ makeCacheMatrix <- function(x = matrix()) {
 ## if this information is already cached, retrieves it from the functions created by 'makeCacheMatrix()' and returns it
 
 cacheSolve <- function(x, ...) {
-	m <- x$getinv()					   # here, 'm' is assigned the value stored by the 'getinv()' function of 'x' from the 'makeCacheMatrix()' function
-            if(!is.null(m)) {			# if 'm' is defined, retrieve its cached value, return it, print message, then end the function 
+	m <- x$getinv()		# here, 'm' is assigned the value stored by the 'getinv()' function of 'x' from the 'makeCacheMatrix()' function
+            if(!is.null(m)) {		# if 'm' is defined, retrieve its cached value, return it, print message, then end the function 
                     message("getting cached data")
                     return(m)
-            }		                        # if 'm' is not defined:				
-            data <- x$get()				 			# - assign 'data' the value of the 'get()' function of 'x' from the 'makeCacheMatrix()' function
-            m <- solve(data, ...)	      # - assigm 'm' the inverse of the 'data' object  	
+            }		                # if 'm' is not defined:				
+            data <- x$get()		# - assign 'data' the value of the 'get()' function of 'x' from the 'makeCacheMatrix()' function
+	 m <- solve(data, ...)	    	# - assigm 'm' the inverse of the 'data' object  	
             x$setinv(m)                 # - use 'm' as argument of the 'setinv()' function of 'x' from the 'makeCacheMatrix()' function
-            m		                        # - return 'm'
+    	m		                # - return 'm'
 	
 }
