@@ -1,0 +1,44 @@
+## Put comments here that give an overall description of what your
+## functions do
+
+## Write a short comment describing this function
+## The makeCacheMatrix function returns a list containing four functions: 'set', 'get', 'setinv' and 'getinv'
+
+# 1. The set function superassigns its argument y to the matrix argument x and also superassigns the NULL object (undefined) to the variable m
+#The set function sets the mean
+# 2. The get function returns the original matrix argument (x) of the makeCacheMatrix function
+# 3. The setinv function calculates the inverse of the input matrix and assigns it to m in the global environment
+# 4. The getinv function retrieves the value of m
+
+makeCacheMatrix <- function(x = matrix()) {
+
+	m <- NULL					#m is assigned thr NULL object, i.e. undefined
+            set <- function(y) {			
+                    x <<- y		# 'x' is superassigned the argument of the set function, i.e. in the global environment
+                    m <<- NULL		# 'm' is assigned thr NULL object, i.e. undefined
+            }
+            get <- function() x				# the 'get' function returns the matrix argument of the 'makeCacheMatrix' function
+            setinv <- function(solve) m <<- solve	# the 'setinv' function calculates the inverse of the input matrix in the global environment
+            getinv <- function() m			# the 'getinv' function stores the inverse of the input matrix
+            list(set = set, get = get,			# makes a list object containing the four functions mentioned above, this is the object which the
+                 setinv = setinv,			# function 'makeCacheMatrix' returns
+                 getinv = getinv)
+
+}
+
+
+## Write a short comment describing this function
+
+cacheSolve <- function(x, ...) {
+	m <- x$getinv()					# here, m is assigned the value stored by the getinv() function contained in the return value of the 								# makeCacheMatrix() function
+            if(!is.null(m)) {				# if the value was previously defined (i.e. not NULL), the function returns the stored value of m and exits
+                    message("getting cached data")
+                    return(m)
+            }						# otherwise, i.e. if the value of m was NULL (not defined): 
+            data <- x$get()				# 'data' is assigned the get function 			
+            m <- solve(data, ...)			# 
+            x$setinv(m)
+            m
+        ## Return a matrix that is the inverse of 'x'
+	
+}
